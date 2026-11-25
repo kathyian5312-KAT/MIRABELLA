@@ -1,854 +1,104 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- AQUÍ SE MODIFICA EL TÍTULO QUE APARECE EN LA PESTAÑA DEL NAVEGADOR -->
-  <title>Mirabella Ristorante Italiano | Menú Digital</title>
-
-  <style>
-    /* ==========================================================================
-       1. PALETA DE COLORES Y VARIABLES DE DISEÑO
-       AQUÍ SE CAMBIAN LOS COLORES DE TODA LA PÁGINA WEB DE FORMA AUTOMÁTICA
-       ========================================================================== */
-    :root {
-      --color-crema-fondo: #FAF7F2;      /* Fondo principal cálido y elegante */
-      --color-blanco-tarjeta: #FFFFFF;   /* Fondo de las tarjetas de productos */
-      --color-verde-oliva: #4A553A;      /* Color principal de marca (encabezados/botones) */
-      --color-verde-oscuro: #353E29;     /* Verde más profundo para efectos al pasar el mouse */
-      --color-terracota: #B8643B;        /* Color de acento (precios, detalles, etiquetas) */
-      --color-texto-principal: #2C2A29;  /* Color oscuro para lectura cómoda */
-      --color-texto-suave: #635E5A;      /* Color gris cálido para descripciones */
-      --color-borde: #E6DFD3;            /* Líneas divisorias sutiles */
-      --fuente-titulos: 'Georgia', 'Times New Roman', serif;
-      --fuente-textos: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    }
-
-    /* ==========================================================================
-       2. CONFIGURACIÓN GENERAL Y DESPLAZAMIENTO FLUIDO
-       ========================================================================== */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      /* Permite que al hacer clic en los enlaces o en "Ver menú", baje suavemente */
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background-color: var(--color-crema-fondo);
-      color: var(--color-texto-principal);
-      font-family: var(--fuente-textos);
-      line-height: 1.6;
-    }
-
-    /* Contenedor central para mantener márgenes elegantes */
-    .contenedor {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    /* ==========================================================================
-       3. ENCABEZADO Y NAVEGACIÓN (HEADER)
-       ========================================================================== */
-    header {
-      background-color: var(--color-blanco-tarjeta);
-      border-bottom: 1px solid var(--color-borde);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-    }
-
-    .barra-navegacion {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 20px;
-      max-width: 1120px;
-      margin: 0 auto;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .marca {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      text-decoration: none;
-    }
-
-    .marca img {
-      height: 54px;
-      width: auto;
-      border-radius: 6px;
-      object-fit: contain;
-    }
-
-    .marca-texto h1 {
-      font-family: var(--fuente-titulos);
-      color: var(--color-verde-oliva);
-      font-size: 1.45rem;
-      letter-spacing: 1px;
-      line-height: 1.1;
-    }
-
-    .marca-texto span {
-      display: block;
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--color-terracota);
-      font-weight: 600;
-    }
-
-    .menu-links {
-      display: flex;
-      gap: 22px;
-      list-style: none;
-    }
-
-    .menu-links a {
-      text-decoration: none;
-      color: var(--color-texto-principal);
-      font-weight: 500;
-      font-size: 0.95rem;
-      transition: color 0.25s ease;
-    }
-
-    .menu-links a:hover {
-      color: var(--color-terracota);
-    }
-
-    /* ==========================================================================
-       4. SECCIÓN DE BIENVENIDA (HERO)
-       ========================================================================== */
-    .bienvenida {
-      background: linear-gradient(135deg, var(--color-verde-oliva) 0%, var(--color-verde-oscuro) 100%);
-      color: #FFFFFF;
-      text-align: center;
-      padding: 80px 20px;
-      position: relative;
-    }
-
-    .bienvenida-contenido {
-      max-width: 720px;
-      margin: 0 auto;
-    }
-
-    .etiqueta-superior {
-      display: inline-block;
-      background-color: rgba(255, 255, 255, 0.14);
-      color: #F3E5D0;
-      padding: 6px 16px;
-      border-radius: 30px;
-      font-size: 0.82rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-    }
-
-    .bienvenida h2 {
-      font-family: var(--fuente-titulos);
-      font-size: 2.5rem;
-      font-weight: normal;
-      line-height: 1.25;
-      margin-bottom: 18px;
-    }
-
-    .bienvenida p {
-      font-size: 1.08rem;
-      color: #EAE4DA;
-      margin-bottom: 32px;
-    }
-
-    .boton-principal {
-      display: inline-block;
-      background-color: var(--color-terracota);
-      color: #FFFFFF;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1rem;
-      padding: 15px 36px;
-      border-radius: 50px;
-      letter-spacing: 0.5px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-      transition: transform 0.2s ease, background-color 0.2s ease;
-    }
-
-    .boton-principal:hover {
-      background-color: #9F512B;
-      transform: translateY(-2px);
-    }
-
-    /* ==========================================================================
-       5. SECCIÓN ESPECIALIDADES DE LA CASA
-       ========================================================================== */
-    .especialidades {
-      padding: 65px 0 30px;
-    }
-
-    .titulo-seccion {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .titulo-seccion span {
-      color: var(--color-terracota);
-      font-size: 0.85rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-
-    .titulo-seccion h2 {
-      font-family: var(--fuente-titulos);
-      color: var(--color-verde-oliva);
-      font-size: 2rem;
-      margin-top: 6px;
-    }
-
-    .linea-decorativa {
-      width: 60px;
-      height: 3px;
-      background-color: var(--color-terracota);
-      margin: 12px auto 0;
-      border-radius: 2px;
-    }
-
-    .grid-especialidades {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 26px;
-    }
-
-    .tarjeta-destacada {
-      background-color: var(--color-blanco-tarjeta);
-      border: 2px solid var(--color-terracota);
-      border-radius: 14px;
-      padding: 28px;
-      position: relative;
-      box-shadow: 0 8px 24px rgba(184, 100, 59, 0.08);
-    }
-
-    .insignia-chef {
-      position: absolute;
-      top: -13px;
-      left: 24px;
-      background-color: var(--color-terracota);
-      color: #FFFFFF;
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      padding: 4px 14px;
-      border-radius: 20px;
-    }
-
-    /* ==========================================================================
-       6. CATÁLOGO DEL MENÚ DIGITAL Y TARJETAS DE PRODUCTOS
-       ========================================================================== */
-    .seccion-menu {
-      padding: 50px 0 70px;
-    }
-
-    /* Filtros rápidos por categoría */
-    .filtros-categoria {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 42px;
-    }
-
-    .btn-filtro {
-      background-color: var(--color-blanco-tarjeta);
-      color: var(--color-verde-oliva);
-      border: 1px solid var(--color-verde-oliva);
-      padding: 8px 18px;
-      border-radius: 25px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .btn-filtro:hover,
-    .btn-filtro.activo {
-      background-color: var(--color-verde-oliva);
-      color: #FFFFFF;
-    }
-
-    .bloque-categoria {
-      margin-bottom: 50px;
-    }
-
-    .encabezado-categoria {
-      border-bottom: 2px solid var(--color-borde);
-      padding-bottom: 10px;
-      margin-bottom: 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      flex-wrap: wrap;
-    }
-
-    .encabezado-categoria h3 {
-      font-family: var(--fuente-titulos);
-      color: var(--color-verde-oliva);
-      font-size: 1.55rem;
-    }
-
-    .encabezado-categoria small {
-      color: var(--color-terracota);
-      font-style: italic;
-      font-size: 0.92rem;
-    }
-
-    .grid-productos {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-      gap: 24px;
-    }
-
-    /* Diseño de cada tarjeta de plato */
-    .tarjeta-producto {
-      background-color: var(--color-blanco-tarjeta);
-      border: 1px solid var(--color-borde);
-      border-radius: 12px;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .tarjeta-producto:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-    }
-
-    .icono-plato {
-      width: 42px;
-      height: 42px;
-      background-color: #F4EFE6;
-      color: var(--color-terracota);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      margin-bottom: 14px;
-    }
-
-    .cabecera-producto {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-
-    .cabecera-producto h4 {
-      font-family: var(--fuente-titulos);
-      font-size: 1.18rem;
-      color: var(--color-texto-principal);
-      line-height: 1.3;
-    }
-
-    .precio {
-      background-color: #F7ECE6;
-      color: var(--color-terracota);
-      font-weight: 700;
-      font-size: 1.05rem;
-      padding: 4px 11px;
-      border-radius: 8px;
-      white-space: nowrap;
-    }
-
-    .descripcion-plato {
-      color: var(--color-texto-suave);
-      font-size: 0.95rem;
-      margin-bottom: 14px;
-    }
-
-    .ingredientes {
-      font-size: 0.82rem;
-      color: var(--color-verde-oliva);
-      border-top: 1px dashed var(--color-borde);
-      padding-top: 10px;
-    }
-
-    .nota-precios {
-      text-align: center;
-      font-size: 0.85rem;
-      color: var(--color-texto-suave);
-      margin-top: 20px;
-      font-style: italic;
-    }
-
-    /* ==========================================================================
-       7. SECCIÓN DE INFORMACIÓN Y CONTACTO DEL RESTAURANTE
-       ========================================================================== */
-    .info-restaurante {
-      background-color: #F2ECE1;
-      border-top: 1px solid var(--color-borde);
-      padding: 65px 20px;
-    }
-
-    .grid-info {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 30px;
-      text-align: center;
-    }
-
-    .caja-info {
-      background-color: var(--color-blanco-tarjeta);
-      padding: 26px 20px;
-      border-radius: 12px;
-      border: 1px solid var(--color-borde);
-    }
-
-    .caja-info h3 {
-      font-family: var(--fuente-titulos);
-      color: var(--color-verde-oliva);
-      font-size: 1.15rem;
-      margin-bottom: 10px;
-    }
-
-    .caja-info p {
-      color: var(--color-texto-suave);
-      font-size: 0.94rem;
-    }
-
-    .llamada-accion-final {
-      text-align: center;
-      max-width: 650px;
-      margin: 45px auto 0;
-    }
-
-    .llamada-accion-final p {
-      font-family: var(--fuente-titulos);
-      font-size: 1.25rem;
-      color: var(--color-verde-oliva);
-      margin-bottom: 18px;
-    }
-
-    /* ==========================================================================
-       8. PIE DE PÁGINA (FOOTER)
-       ========================================================================== */
-    footer {
-      background-color: var(--color-verde-oscuro);
-      color: #EAE4DA;
-      text-align: center;
-      padding: 28px 20px;
-      font-size: 0.9rem;
-    }
-
-    footer strong {
-      color: #FFFFFF;
-      letter-spacing: 0.5px;
-    }
-
-    /* ==========================================================================
-       9. ADAPTACIÓN PARA TELÉFONOS CELULARES (RESPONSIVE DESIGN)
-       ========================================================================== */
-    @media (max-width: 680px) {
-      .barra-navegacion {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .marca {
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .menu-links {
-        gap: 15px;
-        font-size: 0.9rem;
-      }
-
-      .bienvenida {
-        padding: 55px 18px;
-      }
-
-      .bienvenida h2 {
-        font-size: 1.85rem;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#19251e">
+<title>Mirabella | Menú Digital</title>
+<style>
+:root{--ink:#20251f;--green:#243b2e;--olive:#66785a;--cream:#f7f3eb;--paper:#fffdf8;--gold:#c59b55;--muted:#77766e;--line:#e8e1d5;--red:#8d3c32}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:Georgia,"Times New Roman",serif}button,input,select{font:inherit}.top{background:var(--green);color:#fff;text-align:center;padding:12px;font:12px Arial;letter-spacing:2px;text-transform:uppercase}.hero{min-height:340px;padding:70px 20px 58px;text-align:center;color:#fff;background:linear-gradient(90deg,rgba(19,36,27,.86),rgba(19,36,27,.5)),url('https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=1800&q=85') center/cover}.brand{font-size:clamp(42px,7vw,72px);letter-spacing:5px;margin:0}.sub{font:italic 17px Georgia;color:#e8d9b9;margin-top:8px}.hero p{max-width:650px;margin:22px auto 0;font:15px/1.7 Arial;color:#f4f0e7}.nav{position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:1px solid var(--line);display:flex;justify-content:center;gap:25px;padding:15px;flex-wrap:wrap}.nav a{color:var(--green);text-decoration:none;font:12px Arial;letter-spacing:1px;text-transform:uppercase}.wrap{max-width:1120px;margin:auto;padding:48px 22px}.eyebrow{text-align:center;color:var(--gold);font:11px Arial;letter-spacing:3px;text-transform:uppercase}.section-title{text-align:center;font-size:clamp(29px,4vw,42px);font-weight:normal;margin:10px 0 12px}.intro{text-align:center;color:var(--muted);font:14px/1.7 Arial;max-width:650px;margin:0 auto 30px}.filters{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin:25px 0 30px}.filter,.btn{border:1px solid var(--green);background:transparent;color:var(--green);padding:10px 16px;cursor:pointer;border-radius:2px;font:12px Arial;letter-spacing:.5px}.filter.active,.btn.primary{background:var(--green);color:#fff}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.dish{background:var(--paper);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;min-height:235px}.dish .emoji{font-size:25px}.dish h3{font-size:20px;font-weight:normal;margin:12px 0 7px}.price{color:var(--red);font:bold 15px Arial}.dish p{font:13px/1.65 Arial;color:var(--muted);margin:12px 0 18px}.dish button{margin-top:auto;align-self:flex-start}.builder{background:var(--paper);border:1px solid var(--line);padding:clamp(18px,4vw,36px);max-width:850px;margin:30px auto 0;box-shadow:0 12px 35px #3026150b}.steps{display:grid;grid-template-columns:1fr 1fr;gap:22px}.step{border-bottom:1px solid var(--line);padding-bottom:17px}.step h3{font-size:18px;font-weight:normal;margin:0 0 12px}.choices{display:flex;flex-wrap:wrap;gap:8px}.choice{position:relative}.choice input{position:absolute;opacity:0}.choice span{display:block;border:1px solid var(--line);padding:9px 11px;font:12px Arial;cursor:pointer;background:#fff}.choice input:checked+span{background:var(--green);border-color:var(--green);color:#fff}.hint{font:11px Arial;color:var(--muted);margin-top:8px}.summary{margin-top:24px;background:#f2eee5;padding:20px;display:grid;grid-template-columns:1fr auto;gap:15px;align-items:center}.summary h3{font-weight:normal;margin:0 0 7px}.summary p{font:12px/1.6 Arial;color:var(--muted);margin:0}.total{font:28px Georgia;color:var(--green);white-space:nowrap}.qty{display:flex;align-items:center;gap:12px;font:14px Arial;margin-top:14px}.qty button{width:28px;height:28px;border:1px solid var(--line);background:#fff;cursor:pointer}.order-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.custom-note{font:11px/1.5 Arial;color:var(--muted);margin-top:12px}.footer{background:var(--green);color:#eee8dc;text-align:center;padding:35px 20px;font:13px/1.8 Arial}.footer strong{font:25px Georgia;letter-spacing:3px}.hidden{display:none!important}
+@media(max-width:760px){.grid{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr}.nav{gap:13px}.nav a{font-size:10px}.summary{grid-template-columns:1fr}.total{font-size:25px}}
+@media(max-width:480px){.grid{grid-template-columns:1fr}.hero{min-height:300px;padding-top:58px}.wrap{padding:38px 16px}.filter{padding:9px 11px;font-size:11px}}
+</style>
 </head>
 <body>
-
-  <!-- ========================================================================
-       ENCABEZADO DEL SITIO WEB
-       ======================================================================== -->
-  <header>
-    <nav class="barra-navegacion">
-      <a href="#inicio" class="marca">
-        <!-- AQUÍ SE REEMPLAZA EL LOGOTIPO (asegúrate de tener el archivo logo.png en la misma carpeta) -->
-        <img src="logo.png" alt="Logo Mirabella Ristorante Italiano" onerror="this.style.display='none'">
-        
-        <div class="marca-texto">
-          <!-- AQUÍ SE MODIFICA EL NOMBRE DEL RESTAURANTE -->
-          <h1>MIRABELLA</h1>
-          <span>Ristorante Italiano</span>
-        </div>
-      </a>
-
-      <ul class="menu-links">
-        <li><a href="#inicio">Inicio</a></li>
-        <li><a href="#especialidades">Especialidades</a></li>
-        <li><a href="#menu">Menú</a></li>
-        <li><a href="#nosotros">Ubicación</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <!-- ========================================================================
-       SECCIÓN DE BIENVENIDA
-       ======================================================================== -->
-  <section id="inicio" class="bienvenida">
-    <div class="bienvenida-contenido">
-      <span class="etiqueta-superior">Cocina Artesanal Italiana • Portoviejo</span>
-      <h2>El sabor de la tradición italiana, servido con elegancia en Portoviejo.</h2>
-      <p>
-        En Mirabella celebramos la cocina artesanal italiana con pastas frescas hechas en casa, 
-        ingredientes seleccionados y un toque de frescura local. Un espacio acogedor pensado para 
-        disfrutar sin prisas.
-      </p>
-      <a href="#menu" class="boton-principal">Ver menú</a>
+<div class="top">Cocina artesanal italiana · Portoviejo</div>
+<header class="hero" id="inicio">
+  <h1 class="brand">MIRABELLA</h1><div class="sub">Ristorante Italiano</div>
+  <p>El sabor de la tradición italiana, servido con elegancia. Pastas frescas, ingredientes seleccionados y momentos para disfrutar sin prisas.</p>
+</header>
+<nav class="nav"><a href="#inicio">Inicio</a><a href="#menu">Nuestra carta</a><a href="#crea">Crea tu pasta</a><a href="#visitanos">Visítanos</a></nav>
+<main>
+<section class="wrap" id="menu">
+  <div class="eyebrow">La nostra carta</div><h2 class="section-title">Menú Digital</h2>
+  <p class="intro">Descubre nuestras especialidades y elige tus favoritos. También puedes personalizar tu pasta y crear una combinación a tu gusto.</p>
+  <div class="filters">
+    <button class="filter active" data-filter="all">Todo el menú</button><button class="filter" data-filter="entradas">Antipasti</button><button class="filter" data-filter="pastas">Pastas artesanales</button><button class="filter" data-filter="fuertes">Platos fuertes y risottos</button><button class="filter" data-filter="postres">Dolci</button>
+  </div>
+  <div class="grid" id="dishGrid"></div>
+</section>
+<section class="wrap" id="crea" style="padding-top:15px">
+  <div class="eyebrow">La tua pasta, a modo tuo</div><h2 class="section-title">Crea tu propia pasta</h2>
+  <p class="intro">Elige la pasta, la salsa y tus ingredientes favoritos. El precio se actualizará automáticamente mientras armas tu plato.</p>
+  <div class="builder">
+    <div class="steps">
+      <div class="step"><h3>01 · Elige tu pasta</h3><div class="choices" id="pastaChoices"></div></div>
+      <div class="step"><h3>02 · Selecciona tu salsa</h3><div class="choices" id="sauceChoices"></div></div>
+      <div class="step"><h3>03 · Añade tu proteína</h3><div class="choices" id="proteinChoices"></div></div>
+      <div class="step"><h3>04 · Ingredientes extras</h3><div class="choices" id="extraChoices"></div></div>
+      <div class="step"><h3>05 · Elige tu queso</h3><div class="choices" id="cheeseChoices"></div></div>
+      <div class="step"><h3>06 · ¿Alguna indicación?</h3><input id="notes" type="text" placeholder="Ej. sin picante, salsa aparte..." style="width:100%;padding:11px;border:1px solid var(--line);background:white"></div>
     </div>
-  </section>
-
-  <!-- ========================================================================
-       ESPECIALIDADES DE LA CASA
-       ======================================================================== -->
-  <section id="especialidades" class="especialidades">
-    <div class="contenedor">
-      <div class="titulo-seccion">
-        <span>Recomendación del Chef</span>
-        <h2>Especialidades de la Casa</h2>
-        <div class="linea-decorativa"></div>
-      </div>
-
-      <div class="grid-especialidades">
-        <!-- Especialidad 1 -->
-        <article class="tarjeta-destacada">
-          <span class="insignia-chef">Estrella del Litoral</span>
-          <div class="cabecera-producto">
-            <h4>Risotto Mare Nostrum</h4>
-            <!-- AQUÍ SE MODIFICA EL PRECIO -->
-            <span class="precio">$17.50</span>
-          </div>
-          <p class="descripcion-plato">
-            Arroz arborio cremoso cocido en caldo de mariscos con camarones frescos, calamares tiernos y un aroma de vino blanco.
-          </p>
-          <p class="ingredientes">
-            <strong>Por qué elegirlo:</strong> Une la técnica clásica del risotto italiano con mariscos frescos de la costa manabita.
-          </p>
-        </article>
-
-        <!-- Especialidad 2 -->
-        <article class="tarjeta-destacada">
-          <span class="insignia-chef">Receta Tradicional</span>
-          <div class="cabecera-producto">
-            <h4>Tagliatelle al Ragú de la Nonna</h4>
-            <!-- AQUÍ SE MODIFICA EL PRECIO -->
-            <span class="precio">$13.50</span>
-          </div>
-          <p class="descripcion-plato">
-            Cintas de pasta fresca bañadas en salsa de carne cocida a fuego lento con hierbas aromáticas y queso añejo.
-          </p>
-          <p class="ingredientes">
-            <strong>Por qué elegirlo:</strong> Pasta fresca elaborada artesanalmente en el local con salsa de cocción lenta.
-          </p>
-        </article>
-      </div>
+    <div class="summary">
+      <div><h3>Tu creación Mirabella</h3><p id="summaryText">Fettuccine · Alfredo · Pollo · Parmesano</p><div class="qty"><span>Cantidad</span><button id="minus" type="button">−</button><b id="qty">1</b><button id="plus" type="button">+</button></div></div>
+      <div class="total" id="total">$0.00</div>
     </div>
-  </section>
+    <div class="order-actions"><button class="btn primary" id="addCustom">Añadir al pedido</button><button class="btn" id="clearCustom">Reiniciar selección</button></div>
+    <p class="custom-note">Los precios de las opciones personalizables son valores de referencia configurables. Confirma los costos de ingredientes y suplementos antes de publicar el menú para pedidos reales.</p>
+  </div>
+</section>
+<section class="wrap" id="pedido" style="padding-top:5px">
+  <div class="eyebrow">Il tuo ordine</div><h2 class="section-title">Resumen del pedido</h2>
+  <p class="intro">Revisa tus platos antes de enviarnos tu solicitud.</p>
+  <div class="builder" style="max-width:850px;margin-top:0">
+    <div id="cartItems"><p style="font:13px Arial;color:var(--muted)">Aún no has agregado platos.</p></div>
+    <div class="summary"><div><h3>Total estimado</h3><p>Valores expresados en dólares estadounidenses (USD).</p></div><div class="total" id="cartTotal">$0.00</div></div>
+    <div class="order-actions"><button class="btn primary" id="sendOrder">Enviar pedido por WhatsApp</button><button class="btn" id="emptyCart">Vaciar pedido</button></div>
+    <p class="custom-note">Configura el número oficial de WhatsApp en la variable WHATSAPP_NUMBER dentro del código antes de publicar.</p>
+  </div>
+</section>
+</main>
+<footer class="footer" id="visitanos"><strong>MIRABELLA</strong><br>Ristorante Italiano · Portoviejo, Manabí, Ecuador<br>Martes a domingo · 12:00 PM – 10:30 PM<br>Reservas y pedidos: configura aquí tus datos de contacto.<br><small>© 2026 Mirabella Ristorante Italiano</small></footer>
+<script>
+// CONFIGURACIÓN: reemplaza por el número del restaurante con código de país, solo números.
+// Ejemplo Ecuador: 593XXXXXXXXX. No incluyas +, espacios ni guiones.
+const WHATSAPP_NUMBER = "";
 
-  <!-- ========================================================================
-       MENÚ DIGITAL ORGANIZADO POR CATEGORÍAS
-       ======================================================================== -->
-  <main id="menu" class="seccion-menu">
-    <div class="contenedor">
-      <div class="titulo-seccion">
-        <span>Nuestra Carta</span>
-        <h2>Menú Digital</h2>
-        <div class="linea-decorativa"></div>
-      </div>
-
-      <!-- Botones interactivos para filtrar categorías -->
-      <div class="filtros-categoria">
-        <button class="btn-filtro activo" onclick="filtrarMenu('todas', this)">Todo el menú</button>
-        <button class="btn-filtro" onclick="filtrarMenu('antipasti', this)">Antipasti</button>
-        <button class="btn-filtro" onclick="filtrarMenu('pastas', this)">Pastas Artesanales</button>
-        <button class="btn-filtro" onclick="filtrarMenu('fuertes', this)">Platos Fuertes y Risottos</button>
-        <button class="btn-filtro" onclick="filtrarMenu('postres', this)">Dolci (Postres)</button>
-      </div>
-
-      <!-- CATEGORÍA 1: ANTIPASTI -->
-      <div class="bloque-categoria" data-categoria="antipasti">
-        <div class="encabezado-categoria">
-          <h3>Antipasti</h3>
-          <small>Entradas ideales para abrir el apetito y compartir</small>
-        </div>
-
-        <div class="grid-productos">
-          <!-- Producto 1 -->
-          <article class="tarjeta-producto">
-            <div>
-              <div class="icono-plato">🥖</div>
-              <div class="cabecera-producto">
-                <h4>Bruschetta Tierra y Olivo</h4>
-                <!-- AQUÍ SE MODIFICA EL PRECIO -->
-                <span class="precio">$7.50</span>
-              </div>
-              <p class="descripcion-plato">
-                Pan rústico tostado con tomates maduros, albahaca fresca, lascas de queso parmesano y aceite de oliva extra virgen.
-              </p>
-            </div>
-            <p class="ingredientes">
-              <strong>Ingredientes:</strong> Pan artesanal, tomate cherry, albahaca, ajo, queso parmesano, aceite de oliva.
-            </p>
-          </article>
-
-          <!-- Producto 2 -->
-          <article class="tarjeta-producto">
-            <div>
-              <div class="icono-plato">🍋</div>
-              <div class="cabecera-producto">
-                <h4>Carpaccio del Litoral</h4>
-                <!-- AQUÍ SE MODIFICA EL PRECIO -->
-                <span class="precio">$11.00</span>
-              </div>
-              <p class="descripcion-plato">
-                Finas láminas de pescado blanco fresco marinadas en limón sutil, alcaparras, rúcula silvestre y un toque de pimienta rosa.
-              </p>
-            </div>
-            <p class="ingredientes">
-              <strong>Ingredientes:</strong> Pesca blanca local, limón, alcaparras, rúcula, aceite de oliva, pimienta rosa.
-            </p>
-          </article>
-        </div>
-      </div>
-
-      <!-- CATEGORÍA 2: PASTAS ARTESANALES -->
-      <div class="bloque-categoria" data-categoria="pastas">
-        <div class="encabezado-categoria">
-          <h3>Paste Artigianali</h3>
-          <small>Pastas frescas preparadas diariamente en nuestra cocina</small>
-        </div>
-
-        <div class="grid-productos">
-          <!-- Producto 3 -->
-          <article class="tarjeta-producto">
-            <div>
-              <div class="icono-plato">🍝</div>
-              <div class="cabecera-producto">
-                <h4>Tagliatelle al Ragú de la Nonna</h4>
-                <!-- AQUÍ SE MODIFICA EL PRECIO -->
-                <span class="precio">$13.50</span>
-              </div>
-              <p class="descripcion-plato">
-                Cintas de pasta fresca bañadas en salsa de carne cocida a fuego lento con hierbas aromáticas y queso añejo.
-              </p>
-            </div>
-            <p class="ingredientes">
-              <strong>Ingredientes:</strong> Pasta fresca al huevo, carne de res y cerdo, tomate pomodoro, vino tinto, parmesano.
-            </p>
-          </article>
-
-          <!-- Producto 4 -->
-          <article class="tarjeta-producto">
-            <div>
-              <div class="icono-plato">🧀</div>
-              <div class="cabecera-producto">
-                <h4>Spaghetti alla Carbonara Auténtica</h4>
-                <!-- AQUÍ SE MODIFICA EL PRECIO -->
-                <span class="precio">$12.50</span>
-              </div>
-              <p class="descripcion-plato">
-                Pasta al dente envuelta en cremosa emulsión de yema de huevo, queso pecorino romano, pimienta negra y guanciale crocante.
-              </p>
-            </div>
-            <p class="ingredientes">
-              <strong>Ingredientes:</strong> Spaghetti, yema de huevo, queso pecorino, guanciale, pimienta negra.
-            </p>
-          </article>
-
-          <!-- Producto 5 -->
-          <article class="tarjeta-producto">
-            <div>
-              <div class="icono-plato">🌿</div>
-              <div class="cabecera-producto">
-                <h4>Ravioli de Ricotta y Espinaca</h4>
-                <!-- AQUÍ SE MODIFICA EL PRECIO -->
-                <span class="precio">$13.00</span>
-              </div>
-              <p class="descripcion-plato">
-                Pasta rellena artesanal servida en suave salsa de mantequilla avellanada, hojas de salvia fresca y nueces tostadas.
-              </p>
-            </div>
-            <p class="ingredientes">
-              <strong>Ingredientes:</strong> Masa de pasta, queso ricotta, espinaca fresca, mantequilla, salvia, nueces.
-            </p>
-          </article>
-          <!-- AQUÍ SE AGREGAN NUEVOS PRODUCTOS: Copia y pega un bloque <article class="tarjeta-producto">...</article> -->
-        </div>
-      </div>
-
-      <!-- CATEGORÍA 3: PLATOS FUERTES Y RISOTTOS -->
-      <div class="bloque-categoria" data-categoria="fuertes">
-        <div class="encabezado-categoria">
-          <h3>Secondi e Risotti</h3>
-          <small>Especialidades de fondo y risottos cremosos</small>
-        </div>
-
-        <div class="grid-productos">
-          <!-- Producto 6 -->
-          <article class="tarjeta-producto">
-            <div>
-              <div class="icono-plato">🦐</div>
-              <div class="cabecera-producto">
-                <h4>Risotto Mare Nostrum</h4>
-                <!-- AQUÍ SE MODIFICA EL PRECIO -->
-                <span class="precio">$17.50</span>
-              </div>
-              <p class="descripcion-plato">
-                Arroz arborio cremoso cocido en caldo de mariscos con camarones frescos, calamares tiernos y un aroma de vino blanco.
-              </p>
-            </div>
-            <p class="ingredientes">
-              <strong>Ingredientes:</strong> Arroz arborio, camarón, calamar, caldo de pescado, vino blanco, perejil.
-            </p>
-          </article>
-
-          <!-- Producto 7 -->
-          <article class="tarjeta-producto">
-            <div>
-              <div class="icono-plato">🍅</div>
-              <div class="cabecera-producto">
-                <h4>Pollo alla Parmigiana Clásico</h4>
-                <!-- AQUÍ SE MODIFICA EL PRECIO -->
-                <span class="precio">$14.00</span>
-              </div>
-              <p class="descripcion-plato">
-                Pechuga de pollo empanizada al punto dorado, cubierta con salsa pomodoro casera, mozzarella fundida y albahaca fresca.
-              </p>
-            </div>
-            <p class="ingredientes">
-              <strong>Ingredientes:</strong> Pechuga de pollo, pan rallado, salsa de tomate, queso mozzarella, parmesano, albahaca.
-            </p>
-          </article>
-        </div>
-      </div>
-
-      <!-- CATEGORÍA 4: POSTRES -->
-      <div class="bloque-categoria" data-categoria="postres">
-        <div class="encabezado-categoria">
-          <h3>Dolci</h3>
-          <small>El cierre dulce de nuestra mesa italiana</small>
-        </div>
-
-        <div class="grid-productos">
-          <!-- Producto 8 -->
-          <article class="tarjeta-producto">
-            <div>
-              <div class="icono-plato">☕</div>
-              <div class="cabecera-producto">
-                <h4>Tiramisú della Casa</h4>
-                <!-- AQUÍ SE MODIFICA EL PRECIO -->
-                <span class="precio">$6.50</span>
-              </div>
-              <p class="descripcion-plato">
-                Capas de bizcocho humedecido en café expreso, crema suave de mascarpone y un toque final de cacao amargo.
-              </p>
-            </div>
-            <p class="ingredientes">
-              <strong>Ingredientes:</strong> Queso mascarpone, bizcochos de soletilla, café expreso, huevo, cacao en polvo.
-            </p>
-          </article>
-        </div>
-      </div>
-
-      <p class="nota-precios">
-        * Valores expresados en dólares estadounidenses (USD). Precios referenciales sujetos a impuestos de ley.
-      </p>
-    </div>
-  </main>
-
-  <!-- ========================================================================
-       INFORMACIÓN DEL RESTAURANTE
-       ======================================================================== -->
-  <section id="nosotros" class="info-restaurante">
-    <div class="contenedor">
-      <div class="titulo-seccion">
-        <span>Visítanos</span>
-        <h2>Información del Restaurante</h2>
-        <div class="linea-decorativa"></div>
-      </div>
-
-      <div class="grid-info">
-        <div class="caja-info">
-          <h3>Ubicación</h3>
-          <p>Portoviejo, Manabí, Ecuador.<br>Zona Gastronómica y Comercial.</p>
-        </div>
-
-        <div class="caja-info">
-          <h3>Horario de Atención</h3>
-          <p>Martes a Domingo<br>12:00 PM – 10:30 PM</p>
-        </div>
-
-        <div class="caja-info">
-          <h3>Reservas y Pedidos</h3>
-          <p>Atención en salón y pedidos para llevar.<br>Tel: (05) 200-0000</p>
-        </div>
-      </div>
-
-      <div class="llamada-accion-final">
-        <p>¿Listo para vivir una experiencia italiana inolvidable? Elige tus platos favoritos y visítanos en Mirabella.</p>
-        <a href="#menu" class="boton-principal">Volver al menú</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========================================================================
-       PIE DE PÁGINA
-       ======================================================================== -->
-  <footer>
-    <!-- AQUÍ SE MODIFICA EL NOMBRE DEL RESTAURANTE EN EL PIE DE PÁGINA -->
-    <p>&copy; 2026 <strong>Mirabella Ristorante Italiano</strong> — Portoviejo, Ecuador. Todos los derechos reservados.</p>
-  </footer>
-
-  <!-- ========================================================================
-       JAVASCRIPT SENCILLO PARA FILTRAR CATEGORÍAS DEL MENÚ
-       ======================================================================== -->
-  <script>
-    function filtrarMenu(categoriaSeleccionada, botonPresionado) {
-      // 1. Cambia el estilo del botón activo
-      const botones = document.querySelectorAll('.btn-filtro');
-      botones.forEach(btn => btn.classList.remove('activo'));
-      botonPresionado.classList.add('activo');
-
-      // 2. Muestra u oculta las categorías según la selección
-      const bloques = document.querySelectorAll('.bloque-categoria');
-      bloques.forEach(bloque => {
-        if (categoriaSeleccionada === 'todas' || bloque.dataset.categoria === categoriaSeleccionada) {
-          bloque.style.display = 'block';
-        } else {
-          bloque.style.display = 'none';
-        }
-      });
-    }
-  </script>
-
+// Precios de la carta actual consultada en el sitio de Mirabella.
+const dishes = [
+ {cat:"entradas",emoji:"🥖",name:"Bruschetta Tierra y Olivo",price:7.50,desc:"Pan rústico tostado con tomates maduros, albahaca fresca, parmesano y aceite de oliva."},
+ {cat:"entradas",emoji:"🍋",name:"Carpaccio del Litoral",price:11,desc:"Finas láminas de pescado blanco marinadas en limón, alcaparras, rúcula y pimienta rosa."},
+ {cat:"pastas",emoji:"🍝",name:"Tagliatelle al Ragú de la Nonna",price:13.50,desc:"Pasta fresca con salsa de carne cocida lentamente, hierbas aromáticas y queso añejo."},
+ {cat:"pastas",emoji:"🧀",name:"Spaghetti alla Carbonara Auténtica",price:12.50,desc:"Pasta al dente con yema de huevo, pecorino romano, pimienta negra y guanciale."},
+ {cat:"pastas",emoji:"🌿",name:"Ravioli de Ricotta y Espinaca",price:13,desc:"Pasta rellena artesanal con mantequilla avellanada, salvia fresca y nueces tostadas."},
+ {cat:"fuertes",emoji:"🦐",name:"Risotto Mare Nostrum",price:17.50,desc:"Arroz arborio cremoso con camarones, calamares, caldo de mariscos y vino blanco."},
+ {cat:"fuertes",emoji:"🍅",name:"Pollo alla Parmigiana Clásico",price:14,desc:"Pechuga empanizada, salsa pomodoro casera, mozzarella fundida y albahaca fresca."},
+ {cat:"postres",emoji:"☕",name:"Tiramisú della Casa",price:6.50,desc:"Bizcocho con café expreso, crema de mascarpone y cacao amargo."}
+];
+// Edita estos importes según los costos reales de Mirabella.
+const options = {
+ pasta:[["Fettuccine",10],["Spaghetti",10],["Penne",10],["Tagliatelle",11]],
+ sauce:[["Alfredo",0],["Pomodoro",0],["Pesto",1.50],["Carbonara",2]],
+ protein:[["Sin proteína",0],["Pollo",2.50],["Camarones",4],["Carne",3]],
+ extras:[["Champiñones",1],["Aceitunas",.75],["Tomates cherry",1],["Espinaca",1],["Tocino",2]],
+ cheese:[["Parmesano",0],["Mozzarella",1.50],["Pecorino",1.50],["Sin queso",0]]
+};
+const money=n=>"$"+n.toFixed(2);
+let selected={pasta:0,sauce:0,protein:1,cheese:0,extras:[]},quantity=1,cart=[];
+const grid=document.getElementById("dishGrid");
+function renderDishes(filter="all"){grid.innerHTML="";dishes.filter(d=>filter==="all"||d.cat===filter).forEach((d,i)=>{const el=document.createElement("article");el.className="dish";el.innerHTML=`<div class="emoji">${d.emoji}</div><h3>${d.name}</h3><div class="price">${money(d.price)}</div><p>${d.desc}</p><button class="btn" type="button">Añadir al pedido</button>`;el.querySelector("button").onclick=()=>{cart.push({name:d.name,price:d.price,qty:1,detail:"Plato de la carta"});renderCart();document.getElementById("pedido").scrollIntoView({behavior:"smooth"});};grid.appendChild(el);});}
+document.querySelectorAll(".filter").forEach(b=>b.onclick=()=>{document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));b.classList.add("active");renderDishes(b.dataset.filter);});
+function buildChoices(key,id,multi=false){const host=document.getElementById(id);host.innerHTML="";options[key].forEach(([name,price],i)=>{const label=document.createElement("label");label.className="choice";const input=document.createElement("input");input.type=multi?"checkbox":"radio";input.name=key;input.checked=multi?selected.extras.includes(i):selected[key]===i;input.onchange=()=>{if(multi){selected.extras=input.checked?[...selected.extras,i]:selected.extras.filter(x=>x!==i);}else selected[key]=i;updateCustom();};const span=document.createElement("span");span.textContent=name+(price?` +${money(price)}`:"");label.append(input,span);host.append(label);});}
+function buildAll(){buildChoices("pasta","pastaChoices");buildChoices("sauce","sauceChoices");buildChoices("protein","proteinChoices");buildChoices("extras","extraChoices",true);buildChoices("cheese","cheeseChoices");updateCustom();}
+function updateCustom(){let total=0;for(const key of ["pasta","sauce","protein","cheese"])total+=options[key][selected[key]][1];selected.extras.forEach(i=>total+=options.extras[i][1]);total*=quantity;const names=[options.pasta[selected.pasta][0],options.sauce[selected.sauce][0],options.protein[selected.protein][0],...selected.extras.map(i=>options.extras[i][0]),options.cheese[selected.cheese][0]];document.getElementById("summaryText").textContent=names.join(" · ");document.getElementById("total").textContent=money(total);document.getElementById("qty").textContent=quantity;}
+document.getElementById("minus").onclick=()=>{quantity=Math.max(1,quantity-1);updateCustom();};document.getElementById("plus").onclick=()=>{quantity++;updateCustom();};
+document.getElementById("addCustom").onclick=()=>{const detail=[options.pasta[selected.pasta][0],options.sauce[selected.sauce][0],options.protein[selected.protein][0],...selected.extras.map(i=>options.extras[i][0]),options.cheese[selected.cheese][0]].join(", ");let unit=options.pasta[selected.pasta][1]+options.sauce[selected.sauce][1]+options.protein[selected.protein][1]+options.cheese[selected.cheese][1]+selected.extras.reduce((s,i)=>s+options.extras[i][1],0);cart.push({name:"Pasta personalizada",price:unit,qty:quantity,detail,notes:document.getElementById("notes").value});renderCart();document.getElementById("pedido").scrollIntoView({behavior:"smooth"});};
+document.getElementById("clearCustom").onclick=()=>{selected={pasta:0,sauce:0,protein:1,cheese:0,extras:[]};quantity=1;document.getElementById("notes").value="";buildAll();};
+function renderCart(){const host=document.getElementById("cartItems");if(!cart.length){host.innerHTML='<p style="font:13px Arial;color:var(--muted)">Aún no has agregado platos.</p>';document.getElementById("cartTotal").textContent=money(0);return;}host.innerHTML="";let total=0;cart.forEach((item,i)=>{total+=item.price*item.qty;const row=document.createElement("div");row.style.cssText="display:flex;justify-content:space-between;gap:15px;padding:13px 0;border-bottom:1px solid var(--line);font:13px Arial";row.innerHTML=`<div><b>${item.qty} × ${item.name}</b><div style="color:#777;margin-top:5px;line-height:1.5">${item.detail}${item.notes?" · "+item.notes:""}</div></div><div style="text-align:right;white-space:nowrap"><b>${money(item.price*item.qty)}</b><br><button data-remove="${i}" style="border:0;background:none;color:#8d3c32;cursor:pointer;margin-top:7px">Eliminar</button></div>`;host.append(row);});host.querySelectorAll("[data-remove]").forEach(b=>b.onclick=()=>{cart.splice(Number(b.dataset.remove),1);renderCart();});document.getElementById("cartTotal").textContent=money(total);}
+document.getElementById("emptyCart").onclick=()=>{cart=[];renderCart();};
+document.getElementById("sendOrder").onclick=()=>{if(!cart.length){alert("Agrega al menos un plato a tu pedido.");return;}let number=WHATSAPP_NUMBER;if(!number){number=prompt("Ingresa el WhatsApp de Mirabella con código de país, solo números (ej. 593XXXXXXXXX):");if(!number)return;}number=number.replace(/\D/g,"");let total=cart.reduce((s,x)=>s+x.price*x.qty,0);let lines=cart.map(x=>`• ${x.qty} x ${x.name} — ${money(x.price*x.qty)}\n  ${x.detail}${x.notes?"\n  Indicaciones: "+x.notes:""}`).join("\n");let msg=`Hola, Mirabella. Quisiera realizar este pedido:\n\n${lines}\n\nTOTAL ESTIMADO: ${money(total)}\n\n¿Me confirman disponibilidad y tiempo de preparación?`;window.open(`https://wa.me/${number}?text=${encodeURIComponent(msg)}`,"_blank");};
+renderDishes();buildAll();renderCart();
+</script>
 </body>
 </html>
